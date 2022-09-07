@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include "OpenGLWindow.h"
 #include "SDLClass.h"
+#include "ChessBoard.h"
 #include <iostream>
 
 int main(int argv, char** args)
@@ -22,11 +23,49 @@ int main(int argv, char** args)
 
     windowOpenGL->DestroyWindow();*/
 
-    SDLClass* newSDLClass = new SDLClass("Title", 600, 600);
 
-    newSDLClass->Tick();
+	std::cout << "START TEST" << std::endl;
+	while (true)
+	{
+		int number;
+		std::cout << "\n" << std::endl;
+		std::cout << "\n" << std::endl;
 
-    newSDLClass->CleanEverything();
+		std::cout << "1ºEjercicio --> ENCRIPTACIÓN" << std::endl;
+		std::cout << "\n" << std::endl;
+		std::cout << "\n" << std::endl;
+
+		std::cout << "2ºEjercicio --> AJEDREZ" << std::endl;
+		std::cout << "\n" << std::endl;
+		std::cout << "\n" << std::endl;
+		std::cin >> number;
+
+		switch (number)
+		{
+		case 1:
+			break;
+		case 2:
+
+			ChessBoard * chessBoard = new ChessBoard();
+
+			chessBoard->InitTable();
+
+			SDLClass* newSDLClass = new SDLClass("Title", 600, 600);
+
+			newSDLClass->GetReferenceToTheChess(chessBoard);
+
+			newSDLClass->Tick();
+
+			newSDLClass->CleanEverything();
+
+
+			break;
+		}
+	}
+
+	return 0;
+
+
 
     return 0;
 }

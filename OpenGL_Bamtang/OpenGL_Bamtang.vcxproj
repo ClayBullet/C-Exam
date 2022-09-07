@@ -142,11 +142,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c" />
+    <ClCompile Include="ChessBoard.cpp" />
     <ClCompile Include="OpenGLWindow.cpp" />
     <ClCompile Include="OpenGL_Bamtang.cpp" />
     <ClCompile Include="SDLClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChessBoard.h" />
     <ClInclude Include="OpenGLWindow.h" />
     <ClInclude Include="SDLClass.h" />
   </ItemGroup>
