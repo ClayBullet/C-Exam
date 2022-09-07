@@ -96,7 +96,7 @@ void SDLClass::DrawGrid()
     unsigned counter = 0;
     for (int x = 0; x < 8; x++)
     {
-        for (unsigned y = 0; y < 9; y++) 
+        for (unsigned y = 0; y < 8; y++) 
         {
             SDL_Surface* tmpSurface = IMG_Load("assets/Redsquare.png");
 

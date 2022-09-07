@@ -38,7 +38,14 @@ int main(int argv, char** args)
 		std::cout << "2ºEjercicio --> AJEDREZ" << std::endl;
 		std::cout << "\n" << std::endl;
 		std::cout << "\n" << std::endl;
+
+		std::cout << "3ºEjercicio / TEST --> AJEDREZ" << std::endl;
+		std::cout << "\n" << std::endl;
+		std::cout << "\n" << std::endl;
 		std::cin >> number;
+
+		ChessBoard* chessBoard = new ChessBoard();
+		SDLClass* newSDLClass = new SDLClass("Title", 600, 600);
 
 		switch (number)
 		{
@@ -46,11 +53,10 @@ int main(int argv, char** args)
 			break;
 		case 2:
 
-			ChessBoard * chessBoard = new ChessBoard();
+		
 
 			chessBoard->InitTable();
 
-			SDLClass* newSDLClass = new SDLClass("Title", 600, 600);
 
 			newSDLClass->GetReferenceToTheChess(chessBoard);
 
@@ -60,6 +66,20 @@ int main(int argv, char** args)
 
 
 			break;
+
+		case 3:
+			ChessBoard * chessBoard2 = new ChessBoard();
+
+			chessBoard2->InitTable();
+
+			std::string inputWords;
+
+			std::cin >> inputWords;
+
+
+			chessBoard->DrawChessBoard(inputWords.c_str());
+			break;
+
 		}
 	}
 

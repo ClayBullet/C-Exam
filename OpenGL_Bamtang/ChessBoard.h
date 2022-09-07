@@ -27,6 +27,10 @@ private:
 
 public:
 
+	bool isANumber(std::string initPosition);
+
+	int stringToNumber(std::string initPosition);
+
 	std::string TakeValue(unsigned x, unsigned y);
 
 	std::string TakeFileReference(unsigned x, unsigned y);
@@ -38,5 +42,7 @@ public:
 
 
 	void InitTable();
+
+	void DrawChessBoard(const char* initPosition);
 };
 
