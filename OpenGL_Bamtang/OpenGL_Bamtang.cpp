@@ -70,14 +70,20 @@ int main(int argv, char** args)
 		case 3:
 			ChessBoard * chessBoard2 = new ChessBoard();
 
-			chessBoard2->InitTable();
+			//chessBoard2->InitTable();
 
 			std::string inputWords;
 
 			std::cin >> inputWords;
 
-
 			chessBoard->DrawChessBoard(inputWords.c_str());
+
+			newSDLClass->GetReferenceToTheChess(chessBoard);
+
+			newSDLClass->Tick();
+
+			newSDLClass->CleanEverything();
+
 			break;
 
 		}

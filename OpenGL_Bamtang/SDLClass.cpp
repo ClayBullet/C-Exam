@@ -60,18 +60,11 @@ void SDLClass::HandleEvents()
 /// </summary>
 void SDLClass::Tick()
 {
+  //  std::thread bt(asyncCleanRender, 1);
+
     while (executingSDLWindow) 
     {
-        destPlayer.w = 20;
-        destPlayer.h = 20;
-        destPlayer.x = 80;
-        destPlayer2.w = 20;
-        destPlayer2.h = 20;
-        destPlayer2.x = 150;
-
-        ballDest.w = 10;
-        ballDest.h = 10;
-        ballDest.x = 80;
+      
 
         Render();
         HandleEvents();
@@ -91,7 +84,6 @@ void SDLClass::Render()
 
 void SDLClass::DrawGrid()
 {
-    //if (updateGridOnlyFirstTime) return;
 
     unsigned counter = 0;
     for (int x = 0; x < 8; x++)
@@ -118,7 +110,6 @@ void SDLClass::DrawGrid()
 
     }
 
-    updateGridOnlyFirstTime = true;
 }
 
 void SDLClass::DrawCoordsInGrid(std::string name, int index, int xCoords, int yCoords)
@@ -126,7 +117,6 @@ void SDLClass::DrawCoordsInGrid(std::string name, int index, int xCoords, int yC
     const char* takeName = name.c_str();
     SDL_Surface* tmpSurface = IMG_Load(takeName);
 
-    std::cout << "TAKE NAME " + name << std::endl;
 
     charactersChess[index] = SDL_CreateTextureFromSurface(currentRenderer, tmpSurface);
 
@@ -140,6 +130,7 @@ void SDLClass::DrawCoordsInGrid(std::string name, int index, int xCoords, int yC
     rectInfo.y = yCoords;
 
     SDL_RenderCopy(currentRenderer, charactersChess[index], NULL, &rectInfo);
+
 
 }
 
@@ -159,6 +150,10 @@ void SDLClass::CleanEverything()
 void SDLClass::GetReferenceToTheChess(ChessBoard* chessBoard)
 {
     currentChessBoard = chessBoard;
+}
+
+void SDLClass::asyncCleanRender(int time)
+{
 }
 
 

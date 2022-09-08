@@ -2,7 +2,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "ChessBoard.h"
-
+#include <thread>
 #include <iostream>
 
 
@@ -24,6 +24,12 @@ public:
 	void CleanEverything();
 
 	void GetReferenceToTheChess(ChessBoard* chessBoard);
+
+	/// <summary>
+	/// El renderizado se vuelve algo loco a la hora de procesar constantemente todo y tener que imprimirlo en pantalla. 
+	/// Tenemos que decirle cuando parar.
+	/// </summary>
+	void asyncCleanRender(int time);
 
 	ChessBoard* currentChessBoard;
 

@@ -1,7 +1,21 @@
 #include "ChessBoard.h"
+
+/// <summary>
+/// Paso string a intenger. En este caso está pensado para el tema de los switch, ya que C++ no deja
+/// hacer switchs con cadenas de texto
+/// </summary>
+/// <param name="str"></param>
+/// <param name="h"></param>
+/// <returns></returns>
+constexpr unsigned int ChessBoard::str2int(const char* str, int h)
+{
+	return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
+}
+
+
 bool ChessBoard::isANumber(std::string initPosition)
 {
-	return initPosition == "0" || initPosition == "2" || initPosition == "3" || initPosition == "4" || initPosition == "5" ||
+	return initPosition == "0" || initPosition == "1" || initPosition == "2" || initPosition == "3" || initPosition == "4" || initPosition == "5" ||
 		initPosition == "6" || initPosition == "7" || initPosition == "8" || initPosition == "9";
 }
 int ChessBoard::stringToNumber(std::string initPosition)
@@ -58,7 +72,7 @@ ChessBoard::ChessBoard()
 	heightTable = 7;
 
 	//WHITE FACTION
-	ChessCheckPos(0, 0, 7, "r", "assets/Chess/Tower_File.png");
+	/*ChessCheckPos(0, 0, 7, "r", "assets/Chess/Tower_File.png");
 	ChessCheckPos(1, 1, 7, "n", "assets/Chess/Horse_File.png");
 	ChessCheckPos(2, 2, 7, "b", "assets/Chess/Alfil_Png.png"); //CORRECT
 	ChessCheckPos(3, 3, 7, "q", "assets/Chess/Queen_Png.png");
@@ -91,7 +105,7 @@ ChessCheckPos(27, 3, 1, "P", "assets/Chess/PawnChess_Png.png");
 ChessCheckPos(28, 4, 1, "P", "assets/Chess/PawnChess_Png.png");
 ChessCheckPos(29, 5, 1, "P", "assets/Chess/PawnChess_Png.png");
 ChessCheckPos(30, 6, 1, "P", "assets/Chess/PawnChess_Png.png");
-ChessCheckPos(31, 7, 1, "P", "assets/Chess/PawnChess_Png.png");
+ChessCheckPos(31, 7, 1, "P", "assets/Chess/PawnChess_Png.png");*/
 
 
 
@@ -102,7 +116,11 @@ void ChessBoard::ChessCheckPos(int index, unsigned x, unsigned y, std::string id
 {
 	ChessObject chess = ChessObject();
 	chess.id = id;
-	chess.nameFile = nameFile;
+
+	chess.nameFile = idStringToNameFile(id.c_str());
+
+	//std::cout << "NAME FILE " << chess.nameFile << std::endl;
+	//chess.nameFile = nameFile;
 	chess.xPos = x;
 	chess.yPos = y;
 
@@ -139,33 +157,42 @@ void ChessBoard::DrawChessBoard(const char* initPosition)
 
 
 	int count = 0;
+
 	for (int y = 0; y < 8; y++)
 	{
 		std::string finalResult = "";
 
 
-		for (int x = 0; x < 8; x++)
+		for (int x = 0; x < 12; x++)
 		{
 			if (currentName.length() < count) break;
 
+			if (finalResult.length() >= 8) break;
+
+
+
 			if (isANumber(currentName.substr(count, 1)))
 			{
+
 				int number = stringToNumber(currentName.substr(count, 1));
 
-				for (int i = x; i < number; i++)
+			
+				for (int i = 0; i < number; i++)
 				{
 					finalResult += "X";
+
 				}
 
-				if (8 <= x + number) 
+				if (8 <= x + number ) 
 				{ 
+
 					count += 1;
 
 					break; 
 				}
 				else {
-
-					x += number;
+						x += (number - 1);
+					
 				}
 
 				
@@ -174,8 +201,15 @@ void ChessBoard::DrawChessBoard(const char* initPosition)
 			else {
 				if (currentName.substr(count, 1) == "/")
 					finalResult += "X";
-				else
+				else {
+					unsigned value = 1;
+
+					ChessCheckPos(count, x, y, currentName.substr(count, 1), "");
+
+
 					finalResult += currentName.substr(count, 1);
+
+				}
 
 
 
@@ -186,8 +220,10 @@ void ChessBoard::DrawChessBoard(const char* initPosition)
 
 		}
 
+		
 		/*count = 0;
 		count = (8 * (y + 1));*/
+
 		std::cout << finalResult << std::endl;
 
 		if (!isANumber(currentName.substr(count, 1)))
@@ -195,4 +231,29 @@ void ChessBoard::DrawChessBoard(const char* initPosition)
 		else
 			count -= 1;
 	}
+}
+
+/// <summary>
+	/// Pasamos el id a un nombre de archivo.
+	/// </summary>
+	/// <param name="str"></param>
+	/// <returns></returns>
+std::string ChessBoard::idStringToNameFile(std::string str)
+{
+	if (str == "r") return "assets/Chess/Tower_File.png";
+	if (str == "n") return "assets/Chess/Horse_File.png";
+	if (str == "b") return "assets/Chess/Alfil_Png.png";
+	if (str == "q") return "assets/Chess/Queen_Png.png";
+	if (str == "k") return "assets/Chess/King_PNG.png";
+	if (str == "p") return "assets/Chess/PawnChess_Png.png";
+
+	if (str == "R") return "assets/Chess/Tower_File.png";
+	if (str == "N") return "assets/Chess/Horse_File.png";
+	if (str == "B") return "assets/Chess/Alfil_Png.png";
+	if (str == "Q") return "assets/Chess/Queen_Png.png";
+	if (str == "K") return "assets/Chess/King_PNG.png";
+	if (str == "P") return "assets/Chess/PawnChess_Png.png";
+
+	std::cout << "STR " << str << std::endl;
+	return "";
 }

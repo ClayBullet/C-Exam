@@ -23,7 +23,10 @@ private:
 
 	std::string blackChess[16] = {};
 
+	constexpr unsigned int str2int(const char* str, int h = 0);
+	
 
+	std::string idStringToNameFile(std::string str);
 
 public:
 
